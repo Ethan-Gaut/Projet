@@ -16,6 +16,31 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+
+    public function findAllWithCategorySorted(): array
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->leftJoin('a.categories', 'c')
+            ->addSelect('c')
+            ->orderBy('c.name', 'ASC')    // Utilise 'nom' si ton champ s'appelle 'nom' dans Category
+            ->addOrderBy('a.titre', 'ASC');
+    
+        $articles = $qb->getQuery()->getResult();
+    
+        // Regroupement par catégorie
+        $grouped = [];
+    
+        foreach ($articles as $article) {
+            foreach ($article->getCategories() as $category) {
+                $grouped[$category->getName()][] = $article; // ou getName() selon ton entité
+            }
+        }
+    
+        // Tri alphabétique des catégories
+        ksort($grouped);
+    
+        return $grouped;
+    }
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

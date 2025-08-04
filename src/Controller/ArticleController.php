@@ -20,10 +20,10 @@ class ArticleController extends AbstractController
     #[Route('/article', name: 'app_article')]
     public function index(ArticleRepository $articleRepository): Response
     {
-        $articles = $articleRepository->findAll();
-
+        $articles = $articleRepository->findAllWithCategorySorted(); // méthode personnalisée
+    
         return $this->render('article/index.html.twig', [
-            'articles' => $articles,
+            'groupedArticles' => $articles,
         ]);
     }
 
