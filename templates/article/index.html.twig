@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<h1>Liste des articles</h1>
+<a href="{{ path('article_new') }}" class="btn btn-primary" style="margin-bottom: 20px;">
+    ➕ Créer un article
+</a>
+<ul>
+    {% for article in articles %}
+        <li>
+            <h3>{{ article.titre }}</h3>
+            <p>{{ article.text1|slice(0, 100) }}...</p>
+
+            {% if article.image %}
+                <img src="{{ asset('uploads/images/' ~ article.image) }}" alt="Image" style="max-width: 200px;">
+            {% endif %}
+        </li>
+    {% else %}
+        <li>Aucun article trouvé.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,80 @@
+<nav class="navbar">
+    <div class="container">
+        <a href="{{ path('app_home') }}" class="logo">Projet</a>
+
+        <ul class="nav-links">
+            <li><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li><a href="{{ path('app_article')}}">Article</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+
+        <div class="auth-link">
+            <a href="#">Connexion</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .navbar {
+        background-color: #2c3e50;
+        padding: 1rem 0;
+        color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .navbar .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 100%;
+        padding: 0 2rem;
+        margin: 0;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+    }
+
+    .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .nav-links a:hover {
+        text-decoration: underline;
+    }
+
+    .auth-link a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .auth-link a:hover {
+        text-decoration: underline;
+    }
+
+    main.container {
+        margin-top: 80px;
+        padding: 2rem;
+    }
+</style>
