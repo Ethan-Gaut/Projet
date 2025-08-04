@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un PDF{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un PDF</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.file) }}
+        <button class="btn btn-success">Uploader</button>
+    {{ form_end(form) }}
+{% endblock %}

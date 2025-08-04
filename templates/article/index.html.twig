@@ -1,24 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ArticleController!{% endblock %}
+{% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-<h1>Liste des articles</h1>
-<a href="{{ path('article_new') }}" class="btn btn-primary" style="margin-bottom: 20px;">
-    ➕ Créer un article
-</a>
-<ul>
-    {% for article in articles %}
-        <li>
-            <h3>{{ article.titre }}</h3>
-            <p>{{ article.text1|slice(0, 100) }}...</p>
+    <h1>Liste des articles</h1>
 
-            {% if article.image %}
-                <img src="{{ asset('uploads/images/' ~ article.image) }}" alt="Image" style="max-width: 200px;">
-            {% endif %}
-        </li>
+    <a href="{{ path('article_new') }}" class="btn btn-primary mb-3">
+        ➕ Créer un article
+    </a>
+
+    {% if articles is empty %}
+        <p>Aucun article trouvé.</p>
     {% else %}
-        <li>Aucun article trouvé.</li>
-    {% endfor %}
-</ul>
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if article.image %}
+                            <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('article_show', { id: article.id }) }}">
+                                    {{ article.titre }}
+                                </a>
+                            </h5>
+                            <p class="card-text">{{ article.text1|slice(0, 100) ~ '...' }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
+

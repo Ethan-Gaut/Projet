@@ -14,6 +14,7 @@ use App\Repository\CategoryRepository;
 
 class CategoryController extends AbstractController
 {
+    // Liste, Ajout, Modif et Supp les category
     #[Route('/category', name: 'app_category')]
     public function new(Request $request, EntityManagerInterface $em, CategoryRepository $categoryRepository): Response
     {
@@ -36,6 +37,8 @@ class CategoryController extends AbstractController
         ]);
 
     }
+
+    // nouvelle page Ajout
 
    /* #[Route('/category/new', name: 'category_new')]
     public function new(Request $request, EntityManagerInterface $em): Response

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pdf.name }}{% endblock %}
+
+{% block body %}
+    <h1>Visualisation du PDF</h1>
+    <h1>{{ pdf.name }}</h1>
+
+    <iframe src="{{ asset('uploads/pdfs/' ~ pdf.file) }}" width="100%" height="800px"></iframe>
+
+    <a href="{{ path('app_pdf') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    <form method="post" action="{{ path('pdf_delete', {id: pdf.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce PDF ?');" style="display:inline-block; margin-left:10px;">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete-pdf' ~ pdf.id) }}">
+        <button class="btn btn-danger">Supprimer</button>
+    </form>
+{% endblock %}
+
+

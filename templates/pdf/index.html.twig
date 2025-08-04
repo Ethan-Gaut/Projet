@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des PDFs{% endblock %}
+
+{% block body %}
+    <h1>Liste des PDFs</h1>
+
+    <a href="{{ path('pdf_new') }}" class="btn btn-primary mb-3">
+         Ajouter un PDF
+    </a>
+
+    {% if pdfs is empty %}
+        <p>Aucun PDF trouvé.</p>
+    {% else %}
+        <div class="row">
+            {% for pdf in pdfs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {# Ici tu peux afficher une icône PDF ou un aperçu si tu en as #}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">
+                                <a href="{{ path('pdf_show', { id: pdf.id }) }}">
+                                    {{ pdf.name }}
+                                </a>
+                            </h5>
+
+                            <iframe src="{{ asset('uploads/pdfs/' ~ pdf.file) }}" width="100%" height="600px"></iframe>
+                           
+                            
+                            {# Si tu as d’autres infos à afficher, par ex. une description #}
+                            {#{% if pdf.description is defined and pdf.description %}
+                                <p class="card-text">{{ pdf.description|slice(0, 100) ~ '...' }}</p>
+                            {% endif %}#}
+                            <a href="{{ asset('uploads/pdfs/' ~ pdf.file) }}" class="btn btn-outline-primary mt-auto" target="_blank" rel="noopener">
+                                Visualiser
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
