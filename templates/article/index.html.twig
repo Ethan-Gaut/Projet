@@ -6,7 +6,7 @@
     <h1>Liste des articles par catégorie</h1>
 
     <a href="{{ path('article_new') }}" class="btn btn-primary mb-3">
-        ➕ Créer un article
+        Créer un article
     </a>
 
     {% if groupedArticles is empty %}
@@ -19,7 +19,9 @@
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
                             {% if article.image %}
-                                <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
+                                <a href="{{ path('article_show', { id: article.id }) }}">
+                                    <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
+                                </a>
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -29,7 +31,7 @@
                                 </h5>
                                 <p class="card-text">{{ article.text1|slice(0, 100) ~ '...' }}</p>
 
-                                {# 🔽 Affichage des catégories associées à l’article #}
+                                {# Affichage des catégories associées à l’article #}
                                 <div class="mt-2">
                                     <strong>Catégories :</strong>
                                     {% for category in article.categories %}

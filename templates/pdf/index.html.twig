@@ -23,8 +23,9 @@
                                     {{ pdf.name }}
                                 </a>
                             </h5>
-
+                                <a href="{{ path('pdf_show', { id: pdf.id }) }}">
                             <iframe src="{{ asset('uploads/pdfs/' ~ pdf.file) }}" width="100%" height="600px"></iframe>
+                                </a>
                            
                             
                             {# Si tu as d’autres infos à afficher, par ex. une description #}

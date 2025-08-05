@@ -5,8 +5,20 @@
 {% block body %}
     <h1>Ajouter un PDF</h1>
 
-    {{ form_start(form) }}
-        {{ form_row(form.file) }}
+{{ form_start(form) }}
+
+<div class="mb-3">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+</div>
+
+<div class="mb-3">
+    {{ form_label(form.file) }}
+    {{ form_widget(form.file) }}
+    {{ form_errors(form.file) }}
+</div>
         <button class="btn btn-success">Uploader</button>
     {{ form_end(form) }}
+
 {% endblock %}

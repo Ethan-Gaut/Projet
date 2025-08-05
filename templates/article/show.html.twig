@@ -11,10 +11,10 @@
 
     <p>{{ article.text1 }}</p>
 
-    <a href="{{ path('app_article') }}" class="btn btn-secondary mt-3">⬅ Retour à la liste</a>
+    <a href="{{ path('app_article') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
     <form method="post" action="{{ path('article_delete', {id: article.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete-article') }}">
-    <button class="btn btn-danger">🗑 Supprimer</button>
+    <button class="btn btn-danger">Supprimer</button>
 </form>
 {% endblock %}
 
