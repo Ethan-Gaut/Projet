@@ -19,9 +19,8 @@
             {% if app.user %}
                 Bonjour {{ app.user.username }}&nbsp |
                 <a href="{{ path('app_profil')}}">Profil</a>&nbsp|
-                <form action="/logout" method="post" style="display: inline;">
-                    <button type="submit">Déconnexion</button>
-                </form>          
+<a href="{{ path('app_logout') }}">Se déconnecter</a>
+      
             {% else %}
                 <a href="{{ path('app_login') }}">Connexion</a>          
             {% endif %}

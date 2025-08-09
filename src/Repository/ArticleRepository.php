@@ -41,6 +41,46 @@ class ArticleRepository extends ServiceEntityRepository
     
         return $grouped;
     }
+
+    public function findGroupedByCategoryLimited()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.categories', 'c')
+            ->addSelect('c')
+            ->orderBy('a.createdAt', 'DESC');
+    
+        $articles = $qb->getQuery()->getResult();
+    
+        $grouped = [];
+        foreach ($articles as $article) {
+            foreach ($article->getCategories() as $category) {
+                $catName = $category->getName();
+                if (!isset($grouped[$catName])) {
+                    $grouped[$catName] = [];
+                }
+                if (count($grouped[$catName]) < 6) {
+                    $grouped[$catName][] = $article;
+                }
+            }
+        }
+    
+        return $grouped;
+    }
+    public function findByCategoryName(string $name)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.categories', 'c')
+            ->where('c.name = :name')
+            ->setParameter('name', $name)
+            ->orderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    
+
+
+
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

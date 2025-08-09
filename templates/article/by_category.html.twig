@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles - {{ categoryName }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">Articles dans la catégorie : {{ categoryName }}</h1>
+    <div class="mt-4">
+        <a href="{{ path('app_article') }}" class="btn btn-outline-secondary">Retour aux catégories</a>
+    </div>
+    {% if articles is empty %}
+        <div class="alert alert-warning">Aucun article trouvé dans cette catégorie.</div>
+    {% else %}
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if article.image %}
+                            <a href="{{ path('article_show', { id: article.id }) }}">
+                                <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
+                            </a>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('article_show', { id: article.id }) }}" class="text-decoration-none">
+                                    {{ article.titre }}
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted small">
+                                {{ article.text1|slice(0, 100) ~ '...' }}
+                            </p>
+                            <div class="mt-2">
+                                <strong>Catégories :</strong>
+                                {% for category in article.categories %}
+                                    <span class="badge bg-secondary">{{ category.name }}</span>
+                                {% endfor %}
+                                <span class="text-muted ms-2">| {{ article.createdAt|date('d/m/Y') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{{ path('app_article') }}" class="btn btn-outline-secondary">Retour aux catégories</a>
+    </div>
+</div>
+{% endblock %}

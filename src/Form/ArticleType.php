@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ArticleType extends AbstractType
 {
@@ -17,12 +19,23 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('text1')
+            ->add('text1', CKEditorType::class, [
+                'config' => [
+                    'toolbar' => 'standard', // tu peux customiser la barre d'outils
+                    'uiColor' => '#ffffff',
+                    'height' => 300,         // hauteur en pixels (tu peux augmenter)
+                ],
+                'label' => 'texte',  // change le label affiché dans le formulaire
+                'required' => false,
+            ])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name', // à adapter si tu préfères afficher le nom
                 'multiple' => true,
-                'expanded' => false,
+                'expanded' => true,
+                'attr' => [
+                'class' => 'category-checkboxes', // classe CSS optionnelle pour customiser
+                ],  
             ])
             ->add('image', FileType::class, [
                 'label' => 'Image (JPG ou PNG)',

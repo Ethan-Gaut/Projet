@@ -1,48 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des articles{% endblock %}
+{% block title %}Articles par catégorie{% endblock %}
 
 {% block body %}
-    <h1>Liste des articles par catégorie</h1>
-
-    <a href="{{ path('article_new') }}" class="btn btn-primary mb-3">
-        Créer un article
-    </a>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Articles par catégorie</h1>
+        <a href="{{ path('article_new') }}" class="btn btn-success">
+            Ajouter un article
+        </a>
+    </div>
 
     {% if groupedArticles is empty %}
-        <p>Aucun article trouvé.</p>
+        <div class="alert alert-warning">Aucun article trouvé.</div>
     {% else %}
         {% for category, articles in groupedArticles %}
-            <h2 class="mt-4">{{ category }} :</h2>
-            <div class="row">
-                {% for article in articles %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            {% if article.image %}
-                                <a href="{{ path('article_show', { id: article.id }) }}">
-                                    <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
-                                </a>
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <a href="{{ path('article_show', { id: article.id }) }}">
-                                        {{ article.titre }}
-                                    </a>
-                                </h5>
-                                <p class="card-text">{{ article.text1|slice(0, 100) ~ '...' }}</p>
+            <div class="mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="mb-0">{{ category }}</h2>
+                    <a href="{{ path('articles_by_category', { name: category }) }}" class="btn btn-outline-primary btn-sm">
+                        Voir tous les articles
+                    </a>
+                </div>
 
-                                {# Affichage des catégories associées à l’article #}
-                                <div class="mt-2">
-                                    <strong>Catégories :</strong>
-                                    {% for category in article.categories %}
-                                        <span class="badge bg-secondary">{{ category.name }}</span>
-                                    {% endfor %}
+                <div class="row">
+                    {% for article in articles %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                {% if article.image %}
+                                    <a href="{{ path('article_show', { id: article.id }) }}">
+                                        <img src="{{ asset('uploads/images/' ~ article.image) }}" class="card-img-top" alt="Image de l'article">
+                                    </a>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{{ path('article_show', { id: article.id }) }}" class="text-decoration-none">
+                                            {{ article.titre }}
+                                        </a>
+                                    </h5>
+                                    <p class="card-text text-muted small">
+                                        {{ article.text1|slice(0, 100) ~ '...' }}
+                                    </p>
+                                    <div class="mt-2">
+                                        <strong>Catégories :</strong>
+                                        {% for category in article.categories %}
+                                            <span class="badge bg-secondary">{{ category.name }}</span>
+                                        {% endfor %}
+                                        <span class="text-muted ms-2">| {{ article.createdAt|date('d/m/Y') }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}
     {% endif %}
+</div>
 {% endblock %}

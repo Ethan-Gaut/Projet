@@ -3,10 +3,56 @@
 {% block title %}Créer un article{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouvel article</h1>
+    <div class="container mt-4">
+        <h1>Créer un nouvel article</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-success mt-3">Enregistrer</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+
+            <div class="mb-3">
+                {{ form_label(form.titre) }}
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.titre) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.text1) }}
+                {{ form_widget(form.text1, {'attr': {'class': 'form-control', 'rows': '8'}}) }}
+                {{ form_errors(form.text1) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.categories) }}
+                {{ form_widget(form.categories, {'attr': {'class': 'form-select'}}) }}
+                {{ form_errors(form.categories) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.image) }}
+            </div>
+
+            <button type="submit" class="btn btn-success mt-3">Enregistrer</button>
+
+        {{ form_end(form) }}
+    </div>
+
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('{{ form.text1.vars.id }}');
+</script>
+
+<style>
+.category-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* colonnes adaptatives */
+    gap: 10px; /* espacement */
+}
+
+.category-checkboxes label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+</style>
 {% endblock %}

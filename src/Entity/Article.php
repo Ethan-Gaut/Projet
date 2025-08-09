@@ -30,9 +30,13 @@ class Article
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -96,6 +100,18 @@ class Article
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

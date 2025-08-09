@@ -13,6 +13,7 @@
         "doctrine/doctrine-bundle": "^2.15.1",
         "doctrine/doctrine-migrations-bundle": "^3.4.2",
         "doctrine/orm": "^3.5",
+        "friendsofsymfony/ckeditor-bundle": "^2.6",
         "phpdocumentor/reflection-docblock": "^5.6.2",
         "phpstan/phpdoc-parser": "^2.2",
         "symfony/asset": "7.3.*",
