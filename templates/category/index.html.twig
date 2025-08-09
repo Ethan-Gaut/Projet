@@ -1,23 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer une catégorie{% endblock %}
+{% block title %}Gestion des catégories{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div>
-            <h1>Liste des catégories</h1>
-            <ul>
-                {% for category in categories %}
-                    <li>{{ category.name }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div>
-            <h1>Nouvelle catégorie</h1>
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button class="btn btn-primary mt-3">Créer</button>
-            {{ form_end(form) }}
-        </div>
-    </div>
+<div class="container mt-5">
+    <h1>Catégories</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in categories %}
+                <tr>
+                    <td>{{ cat.id }}</td>
+                    <td>{{ cat.name }}</td>
+                    <td>
+                        <a href="{{ path('app_category', { edit: cat.id }) }}" class="btn btn-sm btn-warning">Modifier</a>
+
+                        <form method="post" action="{{ path('category_delete', {id: cat.id}) }}" style="display:inline-block;" onsubmit="return confirm('Supprimer cette catégorie ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cat.id) }}">
+                            <button class="btn btn-sm btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">Aucune catégorie trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr class="my-4">
+
+    <h2>{{ editMode ? 'Modifier' : 'Créer une' }} catégorie</h2>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-{{ editMode ? 'warning' : 'primary' }} mt-3">
+            {{ editMode ? 'Modifier' : 'Créer' }}
+        </button>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

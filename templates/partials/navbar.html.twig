@@ -3,15 +3,14 @@
         <a href="{{ path('app_home') }}" class="logo">Projet</a>
 
         <ul class="nav-links">
-            <li><a href="{{ path('app_home') }}">Accueil</a></li>
-            <li><a href="#">Contact</a></li>
 
             {% if app.user %}
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a href="{{ path('app_article')}}">Article</a></li>
-                <li><a href="{{ path('app_category')}}">Catégorie</a></li>
                 <li><a href="{{ path('app_pdf')}}">PDF</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_gestion') }}">Gestion_Utilisateur</a>
+                    <li><a href="{{ path('app_category')}}">Catégorie</a></li>
+                    <li><a href="{{ path('app_gestion') }}">Menu_Gestion</a></li>
                 {% endif %} 
             {% endif %}
         </ul>
@@ -19,6 +18,7 @@
         <div class="auth-link d-flex align-items-center gap-2">
             {% if app.user %}
                 Bonjour {{ app.user.username }}&nbsp |
+                <a href="{{ path('app_profil')}}">Profil</a>&nbsp|
                 <form action="/logout" method="post" style="display: inline;">
                     <button type="submit">Déconnexion</button>
                 </form>          

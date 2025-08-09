@@ -1,9 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GestionController!{% endblock %}
+{% block title %}Gestion{% endblock %}
 
 {% block body %}
+    <h1>Menu de gestion : </h1>
+    <main class="container mt-5">
+        <h1 class="mb-4">Gestion du profil : </h1>
+            <h3>Nom d'utilisateur : {{ app.user.username }}</h3>
+            <h3>adresse mail : {{ app.user.email }}</h3>
+
+
+    </main>
+
+    <main class="container mt-5">
+    <h1 class="mb-4">Gestion des utilisateurs :</h1>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Utilisateur</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% for role in user.roles %}
+                            <span class="badge bg-secondary">{{ role }}</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {#<a href="{{ path('admin_user_edit', {id: user.id}) }}" class="btn btn-sm btn-warning">Modifier</a>#}
+
+                        {#<form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}"
+                              style="display:inline-block;"
+                              onsubmit="return confirm('Confirmer la suppression de cet utilisateur ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-sm btn-danger">Supprimer</button>
+                        </form>#}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_register') }}">Inscription</a>
-    {% endif %}  
+        <a href="{{ path('app_register') }}" class="btn-admin-register">+ Nouvel utilisateur</a>
+    {% endif %}
+    </main>
+
+
+
+
+
+
+
+    <style>
+.btn-admin-register {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-admin-register:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+</style>
 {% endblock %}
+
+

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Mon profil</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <h2>Informations du compte</h2>
+    {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.email) }}
+        <button class="btn btn-primary">Mettre à jour</button>
+    {{ form_end(form) }}
+
+    <h2 class="mt-4">Changer le mot de passe</h2>
+    {{ form_start(password_form) }}
+        {{ form_row(password_form.plainPassword) }}
+        <button class="btn btn-warning">Changer le mot de passe</button>
+    {{ form_end(password_form) }}
+</div>
+{% endblock %}
